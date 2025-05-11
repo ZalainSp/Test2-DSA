@@ -8,7 +8,7 @@ using namespace std;
 Scanner::Scanner(int size) : tableSize(size) {
     table.resize(tableSize);
 }
-
+//first hash function for folding method
 int Scanner::foldHash(int key) const {
 
     key = abs(key); //handle negative numbers
@@ -34,10 +34,12 @@ int Scanner::foldHash(int key) const {
     cout<< "Hash value: "<<sum<<" % "<<tableSize<<" = "<<hashValue<<"\n";
     return hashValue; //return the final hash index
 }
-
+//second hash function for double hashing
 int Scanner::doubleHash(int key) const {
- 
-    return;
+    int hashValue2 = 7 - (key % 7); //using smaller prime number than table size
+    cout<<"Double hash step: 7 - ("<<abs(key)<<" %7) = "<<hashValue2<<"\n"; //output double hash calculation for tracing
+
+    return hashValue2; //return the result
 }
 
 void Scanner::processKey(int key, const std::string& value) {
