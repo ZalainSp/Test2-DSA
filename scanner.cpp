@@ -43,7 +43,22 @@ int Scanner::doubleHash(int key) const {
 }
 
 void Scanner::processKey(int key, const std::string& value) {
-   
+   cout<<"\nProcessing key: "<<key<<" with value: "<<value<<"\n";
+
+    int index = foldHash(key); //get the index using folding method
+    int step = doubleHash(key); //get the step using double hashing
+    int attempts = 6; //initialize attempts
+    int originalIndex = index; //store original index for tracing
+
+    while(attempts < tableSize){
+        if(!table[index].occupied){
+            table[index].key = key; //insert key
+            table[index].value = value; //insert value
+            table[index].occupied = true; //mark as occupied
+            cout<<"Inserted at index: "<<index<<"\n";
+            return; //exit after successful insertion
+        }
+    }
 }
 
 void Scanner::displayTable() const {
