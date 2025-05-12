@@ -37,8 +37,6 @@ struct HashEntry {
     //second hash function for double hashing
     int doubleHash(int key) const;
     
-    //helper to visualize folding steps
-    void displayFoldingSteps(int key) const;
 };
 
 #endif 

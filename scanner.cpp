@@ -12,15 +12,15 @@ Scanner::Scanner(int size) : tableSize(size) {
 //first hash function for folding method
 int Scanner::foldHash(int key) const {
 
-    key = abs(key); //handle negative numbers
+    int key = abs(key); //handle negative numbers
     string keyStr = to_string(key);
     int sum = 0;
-    const int chunkSize = 3; //process 2 digits at a time
+    const int chunkSize = 3; //process 3 digits at a time
 
     //dispaly folding steps
     cout << "Folding steps for key " << key << ":\n ";
     cout<< "Digits: "<<keyStr<<"\n";
-    cout<< "Breaking into 2 digit chunks:\n";
+    cout<< "Breaking into 3 digit chunks:\n";
 
     for(size_t i = 0; i<keyStr.length(); i+=chunkSize) {
         int end = min(i + chunkSize, keyStr.length()); //ensure we dont go out of bounds
@@ -58,13 +58,17 @@ void Scanner::processKey(int key, const std::string& value) {
             table[index].occupied = true; //mark as occupied
             cout<<"Inserted at index: "<<index<<"\n";
             return; //exit after successful insertion
+        }else{
+            cout<<"collision at index: "<<index<<" it is occupied by key: "<<table[index].key<<"\n";
         }
+        originalIndex = (originalIndex + step) % tableSize; //calculate new index using double hashing
+        attempts++; //increment attempts
     }
+    cout << "Could not insert key " << key << ". the table might be full or no empty slot was found.\n";
 }
-
 void Scanner::displayTable() const {
    cout<<"\nHash Table Contents:\n";
-   cout<<setw(8)<<"Index"<<setw(10)<<"keys"<<setw(15)<<"Values"<<"\n"; 
+   cout<<setw(10)<<"Index"<<setw(10)<<"keys"<<setw(15)<<"Values"<<"\n"; 
    for(int i = 0; i<tableSize; i++){
     if(table[i].occupied){
         cout<<setw(10)<<i<<setw(10)<<table[i].key<<setw(15)<<table[i].value<<"\n"; //display occupied slots using setw for formatting alignment
@@ -75,9 +79,33 @@ void Scanner::displayTable() const {
 }
 
 void Scanner::traceKey(int key) const {
+    cout<<"\nTracing key: "<<key<<"\n";
+
+    int hash1 = foldHash(key); //get the first hash value
+    int hash2 = doubleHash(key); //get the second hash value
+
+    cout<<"First hash value: "<<hash1<<"\n"<<"Second hash value: "<<hash2<<"\n";
+
+    int currentIndex = hash1; //initialize current index
+    bool found = false; //initialize found flag
+    for(int i = 0; i<tableSize; i++){
+        if(table[currentIndex].occupied){
+            if(table[currentIndex].key == key){
+                cout<<"key found at index: "<<table[currentIndex].value<<"\n";
+                found = true; //set found flag
+                break; //exit loop if key is found
+            }else{
+                cout<<"slot is occupied by key: "<<table[currentIndex].key<<"\n";
+            }
+        }else{
+            cout<<"slot is empty, the key is not in the table\n";
+            found = true; //set found to prevent not found message
+            break; //exit loop if empty slot is found
+        }
+        currentIndex = (currentIndex + hash2) % tableSize; //calculate new index using double hashing
+    }
+if(!found){
+    cout<<"key not found in the table\n"; //output if key is not found
    
 }
-
-void Scanner::displayFoldingSteps(int key) const {
-   
 }
