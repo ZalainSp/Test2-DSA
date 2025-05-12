@@ -1,5 +1,6 @@
 #include "scanner.h"
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 #include <vector>
 
@@ -62,7 +63,15 @@ void Scanner::processKey(int key, const std::string& value) {
 }
 
 void Scanner::displayTable() const {
-   
+   cout<<"\nHash Table Contents:\n";
+   cout<<setw(8)<<"Index"<<setw(10)<<"keys"<<setw(15)<<"Values"<<"\n"; 
+   for(int i = 0; i<tableSize; i++){
+    if(table[i].occupied){
+        cout<<setw(10)<<i<<setw(10)<<table[i].key<<setw(15)<<table[i].value<<"\n"; //display occupied slots using setw for formatting alignment
+    }else{
+        cout<<setw(10)<<i<<setw(10)<<"empty"<<setw(15)<<"empty"<<"\n"; //display empty slots using setw for formatting alignment
+    }
+   }
 }
 
 void Scanner::traceKey(int key) const {

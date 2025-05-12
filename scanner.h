@@ -20,6 +20,7 @@ public:
     //trace the hashing steps for a given key
     void traceKey(int key) const;
 
+    private:
 struct HashEntry {
         int key;
         string value;
