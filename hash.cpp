@@ -1,4 +1,4 @@
-#include "scanner.h"
+#include "hash.h"
 #include <iostream>
 #include <iomanip>
 #include <cmath>

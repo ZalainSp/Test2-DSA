@@ -1,5 +1,5 @@
-#ifndef SCANNER_H
-#define SCANNER_H
+#ifndef HASH_H
+#define HASH_H
 
 #include <iostream>
 #include <vector>

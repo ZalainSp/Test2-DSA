@@ -1,5 +1,5 @@
 #include <iostream>
-#include "scanner.h" 
+#include "hash.h" 
 
 int main() {
     //create a scanner object with a table size of 11
