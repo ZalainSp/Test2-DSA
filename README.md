@@ -36,8 +36,8 @@ The doubleHash(int key) method:
 - Shows each index, the key stored, and the value (or if it’s empty)
 
 ##How to run:
-g++ main.cpp hash.cpp -o program
-./program
+- g++ main.cpp hash.cpp -o program
+- ./program
 
 
 https://youtu.be/mLUxSR2gfqw
